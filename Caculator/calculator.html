@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Calculator</title>
+<meta name="viewport" content="width=device-width,initial-scaling=1.0">
+<link rel="shortcut icon" href="Calcu.ico" type="x-icon">
+<style type="text/css">
+table{background-color:pink;position:absolute;top:410px;left:410px;padding-left:0px;cursor:default;}
+td{font-size:21px;cursor:default;}
+body{background-color:rgb(30,250,255);}
+h1{border:0px solid cyan;font-size:55px;width:1250px;background-color:white;border-radius:5px;text-shadow: 5px 5px 5px grey;cursor:default;}
+#First,#Second,#Result{background-color:yellow;font-size:25px;padding:4px 6px;border:2px solid red;border-radius:4px;}
+.btn{background-color:darkorange;font-size:20px;transition:all 0.5s;border:2px solid green;font-style:italic;font-family:cursive;}
+.btn:active{font-size:5px;background-color:blue;}
+.btn:hover{background-color:red;font-size:24px;cursor:pointer;}
+#col{font-size:22.5px;padding:0px 2px;font-family:arial;}
+#his{font-size:29px;text-decoration:underline;color:red;position:absolute;top:380px;left:630px;cursor:default;}
+#Result{position:absolute;top:330px;left:520px;}
+#fi{font-size:24px;}
+</style>
+
+</head>
+
+<body>
+<center>
+<h1>Cal C</h1>
+<input type="number" name="a" id="First" placeholder="First Number" value="" />
+<input type="number" name="b" id="Second" placeholder="Second Number" value="" /><br /><br />
+<button class="btn" id="Add">Addition</button>
+<button class="btn" id="Sub">Subtration</button>
+<button class="btn" id="Mul">Multiplication</button>
+<button class="btn" id="Div">Division</button>
+<button class="btn" id="Lcm">LCM</button>
+<button class="btn" id="Hcf">HCF</button><br /><br />
+<div id="fi">For First Number only:</div>
+<button class="btn" id="Fact">Factorial</button>
+<button class="btn" id="Sqt">Sq. root</button>
+<button class="btn" id="Cut">Cu. root</button>
+<input type="number" name="c" id="Result" disabled placeholder="Result" value="" /><br /><br />
+<div id="his">History</div>
+<table id="Plot" border="2px">
+<tr>
+<td id="col">S No.</td>
+<td id="col">First number</td>
+<td id="col">Operation</td>
+<td id="col">Second number</td>
+<td id="col">Result</td>
+</tr>
+</table></center>
+<script>
+var first=document.getElementById("First");
+var second=document.getElementById("Second");
+var result=document.getElementById("Result")
+var add=document.getElementById("Add");
+var sub=document.getElementById("Sub");
+var mul=document.getElementById("Mul");
+var div=document.getElementById("Div");
+var lcm=document.getElementById("Lcm");
+var hcf=document.getElementById("Hcf");
+var fact=document.getElementById("Fact");
+var sqt=document.getElementById("Sqt");
+var cut=document.getElementById("Cut");
+var plot=document.getElementById("Plot");
+var counter=1;
+var x=document.getElementById("First");
+var y=document.getElementById("Second");
+
+add.addEventListener("click",addit);
+sub.addEventListener("click",subt);
+mul.addEventListener("click",multi);
+div.addEventListener("click",division);
+lcm.addEventListener("click",LCM);
+hcf.addEventListener("click",HCF);
+fact.addEventListener("click",FACT);
+sqt.addEventListener("click",SQT);
+cut.addEventListener("click",CUT);
+function addit(){
+	if((first.value=="")||(second.value=="")){alert("Input two numbers for this Operation!")}
+		else{
+   result.value=Number(first.value)+Number(second.value);
+   plot.innerHTML+="<tr><td>"+counter+".</td><td>"+first.value+"</td> <td>+</td><td>"+second.value+"</td><td>"+result.value+"</td</tr>";
+   counter++;
+}
+}
+function subt(){
+if((first.value=="")||(second.value=="")){alert("Input two numbers for this Operation!")}
+		else{
+   result.value=first.value-second.value;
+   plot.innerHTML+="<tr><td>"+counter+".</td><td>"+first.value+"</td> <td>-</td><td>"+second.value+"</td><td>"+result.value+"</td></tr>";
+   counter++;
+}
+}
+function multi(){
+if((first.value=="")||(second.value=="")){alert("Input two numbers for this Operation!")}
+		else{
+   result.value=first.value*second.value;
+    plot.innerHTML+="<tr><td>"+counter+".</td><td>"+first.value+"</td> <td>*</td><td>"+second.value+"</td><td>"+result.value+"</td></tr>";
+   counter++;
+}
+}
+function division(){
+	if((first.value=="")||(second.value=="")){alert("Input two numbers for this Operation!")}
+		else{
+	if(second.value==0){
+		alert("Division by zero is not defined!")
+	}
+	else{
+   result.value=first.value/second.value;
+   plot.innerHTML+="<tr><td>"+counter+".</td><td>"+first.value+"</td> <td>/</td><td>"+second.value+"</td><td>"+result.value+"</td></tr>";
+   counter++;
+}
+}
+}
+function LCM(){
+	if((first.value=="")||(second.value=="")){alert("Input two numbers for this Operation!")}
+		else{
+	if((first.value==0)||(second.value==0)){
+		alert("There is no LCM of 0 and any non-zero integers or 0. This is because the definition of Least Common Multiple according to Wolfram Mathworld is  the smallest positive number m for which there exist positive integers a and b such that a*p=b*q=m. We know that any non-zero integer can be multiplied by 0 to make 0, but 0 is not a positive integer. However, you cannot multiply zero by any positive integer to make a non-zero number. Thus, we can conclude that there is no such LCM.");
+	}
+	else{
+	var max;
+	var x=first.value;
+	var y=second.value;
+	if(x>y)
+		max=x;
+	else
+		max=y;
+	while(1){
+		if((max%x==0) && (max%y==0)){
+			result.value=max;
+			break;
+		}
+		++max;
+	}
+	plot.innerHTML+="<tr><td>"+counter+".</td><td>"+first.value+"</td> <td>LCM</td><td>"+second.value+"</td><td>"+result.value+"</td></tr>";
+	counter++;
+}
+}
+}
+
+function HCF(){
+	if((first.value=="")||(second.value=="")){alert("Input two numbers for this Operation!")}
+		else{
+	var x=first.value;
+    var y=second.value
+    if(x==0&&y!=0)
+    	result.value=y;
+    else if(x!=0&&y==0)
+    	result.value=x;
+    else{
+while(x!=y)
+    {
+        if(x> y)
+            x -= y;
+        else
+            y -= x;
+    }
+	result.value=x;
+	}
+	plot.innerHTML+="<tr><td>"+counter+".</td><td>"+first.value+"</td> <td>HCF</td><td>"+second.value+"</td><td>"+result.value+"</td></tr>";
+	counter++;
+}
+}
+function FACT(){
+	var y="";
+	if(first.value==""){
+		alert("Put Number in first slot to calculate its Factorial!")
+	}
+	else if(first.value==0){
+		result.value=1;
+		plot.innerHTML+="<tr><td>"+counter+".</td><td>"+first.value+"</td> <td>!</td><td>"+y+"</td><td>"+result.value+"</td></tr>";
+		counter++;
+	}
+	else if(first.value<0){alert("Factorial of negative numbers is not defined!")}
+	else{
+	var x=first.value;
+	var f=1;
+	while(x!=1){
+		f=f*x;
+		x--;
+	}
+	result.value=f;
+	plot.innerHTML+="<tr><td>"+counter+".</td><td>"+first.value+"</td> <td>!</td><td>"+y+"</td><td>"+result.value+"</td></tr>";
+	counter++;
+}
+}
+function SQT(){
+	if(first.value==""){
+		alert("Put Number in first slot to calculate its Square root!")
+	}
+	else if(first.value<0){alert("Square root of negative numbers is not defined!")}
+    else{
+		var x=first.value;
+		var y="";
+		result.value=Math.sqrt(x);
+		plot.innerHTML+="<tr><td>"+counter+".</td><td>"+first.value+"</td> <td>Sq. root</td><td>"+y+"</td><td>"+result.value+"</td></tr>";
+		counter++;
+}
+	}
+
+function CUT(){
+	if(first.value==""){
+		alert("Put Number in first slot to calculate its Cube root!")
+	}
+	else if(first.value<0){alert("Cube root of negative numbers is not defined!")}
+    else{
+		var x=first.value;
+		var y="";
+		result.value=Math.cbrt(x);
+		plot.innerHTML+="<tr><td>"+counter+".</td><td>"+first.value+"</td> <td>Cb. root</td><td>"+y+"</td><td>"+result.value+"</td></tr>";
+		counter++;
+}
+	}
+
+</script>
+</body>
+</html>
+
