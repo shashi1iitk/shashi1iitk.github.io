@@ -172,6 +172,8 @@ function FACT(){
 		plot.innerHTML+="<tr><td>"+counter+".</td><td>"+first.value+"</td> <td>!</td><td>"+y+"</td><td>"+result.value+"</td></tr>";
 		counter++;
 	}
+	else if((first.value<0)&&(first.value%1!=0)){alert("Factorial of negative and decimal numbers is not defined!.And it has both.");}
+	else if(first.value%1!=0){alert("Factorial of decimal numbers is not defined!");}
 	else if(first.value<0){alert("Factorial of negative numbers is not defined!")}
 	else{
 	var x=first.value;
