@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Memory Puzzle</title>
+<meta name="viewport" content="width=device-width,initial-scaling=1.0">
+<link rel="shortcut icon" href="fab.jpg" type="x-icon">
+<style type="text/css">
+body{background-color:cyan;position:fixed;}
+h1{font-size:45px;font-family:cursive;font-weight:bold;border:2px black solid;background-color:#fff;width:1250px;border-radius:3px;box-shadow:10px 10px 13px rgb(226,88,29);text-shadow:5px 5px 5px rgb(240,71,15);margin-top:0px;padding-top:0px;margin-left:50px;cursor:default;}
+.class1{width:145px;height:125px;font-size:90px;border:2.5px solid indigo;background-color:rgb(255,255,6);display:inline-table;color:rgb(255,255,6);cursor:pointer;z-index:99;transition:all 0.35s ease;transform-style:preserve-3d;transform:rotateX(180deg);perspective:1200;background-image:url(card.png);}
+.class4{width:145px;height:125px;font-size:90px;border:2.5px solid indigo;background-color:rgb(73,250,48);display:inline-table;color:rgb(73,250,48);cursor:pointer;z-index:99;background-image:url(fl.png);}
+.class1:hover{border-color:white;}
+
+.class2{width:145px;height:125px;font-size:90px;border:2.5px solid red;display:inline-table;background-color:white;color:black;z-index:999999;font-family:times;transform:rotateY(360deg);transition:all 0.6s ease;transform-style:preserve-3d;perspective:1200;}
+
+.class3{width:145px;height:125px;font-size:90px;border:2.5px solid black;display:inline-table;background-color:white;color:white;cursor:default;transform:rotateY(720deg);transition:all 0.5s ease;transform-style:preserve-3d;perspective:1200;}
+
+#mo{font-size:25px;font-family:sans-serif;width:350px;position:absolute;top:225px;left:980px;cursor:default;background-color:orange;border-radius:3px;}
+#Moves,#Matches,#msecond,#second,#minute{font-size:25px;width:33px;background-color:rgb(30,250,255);padding-left:2px;border-color:orange;background-color:orange;}
+#ins{font-size:20px;font-family:sans-serif;width:350px;position:absolute;top:549px;left:960px;cursor:default;font-family:times;}
+
+#play{font-size:29px;font-family:cursive;font-style:italic;background-color:black;margin-left:-5px;border:2px solid black;border-radius:2px 40px 40px 2px;position:absolute;top:120px;display:inline;transition:all 0.5s;padding-left:8px;padding-right:8px;padding-right:20px;color:red;}
+#play:hover{font-size:34px;z-index:9999;box-shadow:7px 7px 15px black;cursor:crosshair;border-radius:2px;background-color:red;color:black;}
+
+#new{font-size:29px;font-family:cursive;font-style:italic;background-color:black;margin-left:-5px;border:2px solid black;border-radius:2px 36px 36px 2px;position:absolute;top:169px;display:inline;transition:all 0.5s;padding-left:8px;padding-right:8px;padding-right:15px;color:red;}
+#new:hover{font-size:34px;z-index:999;box-shadow:7px 7px 15px black;cursor:pointer;border-radius:2px;background-color:red;color:black;}
+
+#how{font-size:29px;font-family:cursive;font-style:italic;background-color:black;margin-left:-5px;border:2px solid black;border-radius:2px 40px 40px 2px;position:absolute;top:218px;display:inline;transition:all 0.5s;padding-left:8px;padding-right:8px;padding-right:40px;color:red;z-index:999999;}
+#how:hover{font-size:34px;z-index:99;box-shadow:7px 7px 15px black;cursor:help;border-radius:2px;background-color:red;color:black;}
+#img{position:absolute;top:272px;left:30px;display:inline;z-index:9;}
+p{font-family:cursive;color:black;background-color:rgb(14,207,218);opacity:0.75;border-radius:2px;}
+div{}
+</style>
+</head>
+<body onload="load();">
+<center>
+<h1>Memory Puzzle</h1>
+
+<div id="1" class="class1" onclick="clr(1)">A</div>
+<div id="2" class="class1" onclick="clr(2)">B</div>
+<div id="3" class="class1" onclick="clr(3)">C</div>
+<div id="4" class="class1" onclick="clr(4)">D</div><br />
+<div id="5" class="class1" onclick="clr(5)">E</div>
+<div id="6" class="class1" onclick="clr(6)">F</div>
+<div id="7" class="class1" onclick="clr(7)">G</div>
+<div id="8" class="class1" onclick="clr(8)">H</div><br />
+<div id="9" class="class1" onclick="clr(9)">A</div>
+<div id="10" class="class1" onclick="clr(10)">B</div>
+<div id="11" class="class1" onclick="clr(11)">C</div>
+<div id="12" class="class1" onclick="clr(12)">D</div><br />
+<div id="13" class="class1" onclick="clr(13)">E</div>
+<div id="14" class="class1" onclick="clr(14)">F</div>
+<div id="15" class="class1" onclick="clr(15)">G</div>
+<div id="16" class="class1" onclick="clr(16)">H</div><br />
+
+<div id="mo">
+ Moves:<input type="text" disabled placeholder="00" value="00" id="Moves" />
+<br />
+Matches:<input type="text" disabled placeholder="00" value="00" id="Matches" /><br />
+Timer <input type="text" disabled placeholder="00" value="00" id="minute" />
+:<input type="text" disabled placeholder="00" value="00" id="second" />
+:<input type="text" disabled placeholder="00" value="00" id="msecond" />
+</div>
+<p id="ins">Try to find all eight matches in minimum moves and time.</p>
+
+
+</center>
+
+<button id="play" onclick="play();">>>Start</button><br />
+<button id="new" onclick="load();">>>New Game</button><br />
+<button id="how" onclick="how();">>>How to Play?</button>
+<img src="pq.gif" id="img" height="350px" />
+
+<img src="fl.png" width="0" height="0" />
+<audio src="final.mp3" autoplay="autoplay" id="aud"></audio>
+<script>
+var counter=0;
+var f,s;
+var moves=document.getElementById("Moves");
+var au=document.getElementById("aud");
+var move=1;
+var matches=document.getElementById("Matches");
+var match=1;
+var mseco=document.getElementById("msecond");
+var seco=document.getElementById("second");
+var minu=document.getElementById("minute");
+var player=0;
+var msec=0;
+var sec=1;
+var min=1;
+var timer;
+
+function play(){
+	if(match==9){
+		alert("You already Completed the game!. Press New Game to play again and take another Challange!.")
+	}
+	else if(player==0){
+		player=1;
+	clearInterval(timer);
+	au.setAttribute("src","finals.mp3");
+	count();
+	}
+}
+function load(){
+	for(var i=1;i<=16;i++)
+	document.getElementById(i).className="class4";
+	moves.value=00;
+	matches.value=00;
+	counter=0;
+	mseco.value=00;
+	seco.value=00;
+	minu.value=00;
+	move=01;
+	match=01;
+	msec=0;
+	sec=01;
+	min=01;
+	player=0;
+	clearInterval(timer);
+	au.setAttribute("src","final.mp3");
+	var timg=setTimeout("wload()",500);
+
+
+}
+function wload(){
+
+	for(var i=1;i<=16;i++)
+	document.getElementById(i).className="class1";
+var num=Math.floor(Math.random()*17);
+	document.getElementById(num).innerHTML="B";
+	num++;
+	if(num==17){
+		num=1;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="A";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="B";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="C";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="D";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="D";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="C";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="A";num++;
+		num=40;
+	}
+	if(num!=40)
+	document.getElementById(num).innerHTML="A";num++;
+	
+	if(num==17){
+		num=1;
+		document.getElementById(num).innerHTML="C";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="D";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="A";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="B";num++;
+		document.getElementById(num).innerHTML="D";num++;
+		document.getElementById(num).innerHTML="C";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		num=40;
+	}
+	if(num!=40)
+    document.getElementById(num).innerHTML="B";num++;
+	
+	if(num==17){
+		num=1;
+		document.getElementById(num).innerHTML="C";num++;
+		document.getElementById(num).innerHTML="D";num++;
+		document.getElementById(num).innerHTML="A";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="D";num++;
+		document.getElementById(num).innerHTML="C";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		num=40;
+	}
+	if(num!=40)
+	document.getElementById(num).innerHTML="C";num++;
+	
+	if(num==17){
+		num=1;
+		document.getElementById(num).innerHTML="A";num++;
+		document.getElementById(num).innerHTML="C";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="D";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="D";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		num=40;
+	}
+	if(num!=40)
+	document.getElementById(num).innerHTML="C";num++;
+	
+	if(num==17){
+		num=1;
+		document.getElementById(num).innerHTML="D";num++;
+		document.getElementById(num).innerHTML="A";num++;
+		document.getElementById(num).innerHTML="D";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		num=40;
+	}
+	if(num!=40)
+	document.getElementById(num).innerHTML="D";num++;
+	
+	if(num==17){
+		num=1;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="A";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="D";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		num=40;
+	}
+	if(num!=40)
+	document.getElementById(num).innerHTML="E";num++;
+	
+	if(num==17){
+		num=1;
+		document.getElementById(num).innerHTML="D";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="A";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		num=40;
+	}
+	if(num!=40)
+	document.getElementById(num).innerHTML="A";num++;
+	
+	if(num==17){
+		num=1;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="D";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		num=40;
+	}
+	if(num!=40)
+	document.getElementById(num).innerHTML="D";num++;
+	
+	if(num==17){
+		num=1;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		num=40;
+	}
+	if(num!=40)
+	document.getElementById(num).innerHTML="F";num++;
+	
+	if(num==17){
+		num=1;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="F";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		num=40;
+	}
+	if(num!=40)
+	document.getElementById(num).innerHTML="F";num++;
+	
+	if(num==17){
+		num=1;
+		document.getElementById(num).innerHTML="E";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		num=40;
+	}
+	if(num!=40)
+	document.getElementById(num).innerHTML="G";num++;
+	
+	if(num==17){
+		num=1;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="E";num++;
+		num=40;
+	}
+	if(num!=40)
+	document.getElementById(num).innerHTML="E";num++;
+	
+	if(num==17){
+		num=1;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		document.getElementById(num).innerHTML="G";num++;
+		num=40;
+	}
+	if(num!=40)
+	document.getElementById(num).innerHTML="H";num++;
+    
+	if(num==17){
+		num=1;
+		document.getElementById(num).innerHTML="G";num++;
+		document.getElementById(num).innerHTML="H";num++;
+		num=40;
+	}
+	if(num!=40)
+	document.getElementById(num).innerHTML="G";num++;
+    
+	if(num==17){
+		num=1;
+		document.getElementById(num).innerHTML="H";num++;
+		num=40;
+	}
+	if(num!=40)
+	document.getElementById(num).innerHTML="H";num++;
+	
+}
+
+function count(){
+	if(player==1){
+	if((sec==60)&&(msec==100)){
+		if(min<10)
+			minu.value='0'+min;
+		else
+		minu.value=min;
+		min++;
+		sec=0;
+	}
+	if(msec==100){
+		if(sec<10)
+			seco.value='0'+sec;
+		else
+		seco.value=sec;
+		sec++;
+		msec=0;
+	}
+
+	if(msec<10)
+			mseco.value='0'+msec;
+	else
+		mseco.value=msec;
+	msec++;
+	timer=setTimeout("count()",10);
+}
+}
+
+function how(){
+	alert("There is sixteen tiles contanaing alphabet.In between them there are eight pairs of tiles which have same letters.You have to select two consecutive tiles if their alphabets matched then it form one match else they came to default.Your final goal is to find all eigth matches in minimum possible moves and time.");
+}
+
+
+function clr(a){
+	if(player==1){
+		if(counter==1&&document.getElementById(a).className=="class2"){
+	document.getElementById(a).className="class1";
+	counter=0;
+	moves.value=move;
+	move++;
+		}
+	else if((counter==1)&&(document.getElementById(a).className=="class1")){
+	document.getElementById(a).className="class2";
+	counter++;
+	s=a;
+	var x=setTimeout("change()",500);
+}
+else if((counter==0)&&(document.getElementById(a).className=="class1")){
+document.getElementById(a).className="class2";
+f=a;
+counter++;
+}
+}
+else if(match==9)
+	alert("You already Completed the game!. Press New Game to take another Challange.");
+else
+	alert("Hit Start Button to Play the Game!");
+
+
+
+}
+function change(){
+	if(document.getElementById(f).innerHTML==document.getElementById(s).innerHTML){
+	document.getElementById(f).className="class3";
+	document.getElementById(s).className="class3";
+	counter=0;
+	moves.value=move;
+	move++;
+	matches.value=match;
+	match++;
+	
+	if(match==9){
+		au.setAttribute("src","final.mp3");
+		move-=1;
+		if((minu.value==0)&&(seco.value<30))
+	alert("Eureka! You Completed the Puzzle. Number of moves: "+move+". Time taken: "+seco.value+" seconds. Well played!");
+	else if(minu.value==0)
+	alert("Eureka! You Completed the Puzzle. Number of moves: "+move+". Time taken: "+seco.value+" seconds. Not bad but,you can do better!");
+	else
+	alert("Eureka! You Completed the Puzzle. Number of moves: "+move+". Time taken: "+minu.value+" minutes "+seco.value+" seconds. Not bad but,you can do better!");
+	player=0;
+	}
+	}
+	if(document.getElementById(f).innerHTML!=document.getElementById(s).innerHTML){
+	document.getElementById(f).className="class1";
+	document.getElementById(s).className="class1";
+	counter=0;
+	moves.value=move;
+	move++;
+	}
+}
+
+
+</script>
+</body>
+</html>
